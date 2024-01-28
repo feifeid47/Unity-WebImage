@@ -1,0 +1,17 @@
+{
+    "name": "com.feif.webimage",
+    "version": "1.0.0",
+    "displayName": "WebImage",
+    "description": "Unity WebImage",
+    "unity": "2019.4",
+    "unityRelease": "0f1",
+    "documentationUrl": "https://github.com/feifeid47/Unity-WebImage/blob/main/README.md",
+    "changelogUrl": "https://github.com/feifeid47/Unity-WebImage/blob/main/CHANGELOG.md",
+    "keywords": [
+        "ugui"
+    ],
+    "author": {
+        "name": "feifeid47",
+        "email": "feifeid47@qq.com"
+    }
+}
