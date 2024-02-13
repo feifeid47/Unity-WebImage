@@ -59,7 +59,7 @@ public class WebImageDemo : MonoBehaviour
             Debug.Log("下载失败");
         };
         // 设置默认图片，下载失败将使用默认图片
-        img.defaultSprite = defaultSprite;
+        img.DefaultSprite = defaultSprite;
         // 设置图片地址
         img.SetUrl("https://avatars.githubusercontent.com/u/91374196?v=4");
     }
@@ -72,5 +72,3 @@ public class WebImageDemo : MonoBehaviour
     }
 }
 ```
-
-

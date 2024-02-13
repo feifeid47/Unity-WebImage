@@ -6,23 +6,23 @@ using UnityEngine.UI;
 
 namespace Feif.UI
 {
-    public class WebImage : Image
+    public class WebRawImage : RawImage
     {
         /// <summary>
         /// 图片下载器
         /// 如果未赋值，将会使用默认下载器
         /// </summary>
-        public static Func<string, Task<Sprite>> Downloader;
+        public static Func<string, Task<Texture>> Downloader;
 
         /// <summary>默认图片</summary>
         [SerializeField]
-        private Sprite defaultSprite;
+        private Texture defaultTexture;
 
         /// <summary>图片url</summary>
         public string Url { get => url; }
-        /// <summary>默认图片</summary>
-        public Sprite DefaultSprite { get => defaultSprite; set => defaultSprite = value; }
 
+        /// <summary>默认图片</summary>
+        public Texture DefaultTexture { get => defaultTexture; set => defaultTexture = value; }
 
         /// <summary>图片下载成功事件</summary>
         public event Action<string> OnDownloadSuccess;
@@ -47,10 +47,10 @@ namespace Feif.UI
         {
             if (reset)
             {
-                sprite = defaultSprite;
+                texture = defaultTexture;
             }
             this.url = url;
-            Sprite downloadResult = null;
+            Texture downloadResult = null;
             downloadResult = Downloader == null ? await DefaultDownloader(url) : await Downloader(url);
             if (downloadResult != null)
             {
@@ -61,7 +61,7 @@ namespace Feif.UI
                 OnDownloadFailed?.Invoke(url);
             }
             if (this.url != url) return;
-            sprite = downloadResult == null ? defaultSprite : downloadResult;
+            texture = downloadResult == null ? defaultTexture : downloadResult;
         }
 
         /// <summary>
@@ -79,15 +79,15 @@ namespace Feif.UI
         public void SetAsDefault()
         {
             url = string.Empty;
-            sprite = defaultSprite;
+            texture = defaultTexture;
         }
 
         /// <summary>
         /// 默认下载器
         /// </summary>
-        public static Task<Sprite> DefaultDownloader(string url)
+        public static Task<Texture> DefaultDownloader(string url)
         {
-            var completionSource = new TaskCompletionSource<Sprite>();
+            var completionSource = new TaskCompletionSource<Texture>();
             if (string.IsNullOrEmpty(url))
             {
                 completionSource.SetResult(null);
@@ -109,8 +109,7 @@ namespace Feif.UI
                     request.Dispose();
                     return;
                 }
-                var sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), Vector2.zero);
-                completionSource.SetResult(sprite);
+                completionSource.SetResult(texture);
                 request.Dispose();
             };
             return completionSource.Task;
